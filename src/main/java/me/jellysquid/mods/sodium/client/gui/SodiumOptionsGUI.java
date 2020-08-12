@@ -1,5 +1,6 @@
 package me.jellysquid.mods.sodium.client.gui;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import me.jellysquid.mods.sodium.client.gui.options.Option;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.options.OptionGroup;
@@ -204,7 +205,7 @@ public class SodiumOptionsGUI extends Screen {
 
         StringVisitable title = new LiteralText(option.getName()).formatted(Formatting.GRAY);
 
-        List<OrderedText> text = this.textRenderer.wrapLines(title, textWidth);
+        List<OrderedText> text = new ArrayList<>(this.textRenderer.wrapLines(title, textWidth));
         text.addAll(this.textRenderer.wrapLines(option.getTooltip(), textWidth));
 
         int boxHeight = (text.size() * 12) + boxPadding;
