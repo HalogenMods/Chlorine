@@ -1,7 +1,7 @@
 package me.jellysquid.mods.sodium.client.model.quad;
 
 import me.jellysquid.mods.sodium.client.model.quad.properties.ModelQuadFlags;
-import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import java.nio.ByteBuffer;
 
@@ -81,5 +81,5 @@ public interface ModelQuadView {
     /**
      * @return The sprite texture used by this quad, or null if none is attached
      */
-    Sprite getSprite();
+    TextureAtlasSprite getSprite();
 }
