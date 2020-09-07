@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[${forge_version_min},${forge_version_max})"
+issueTrackerURL="http://github.com/HalogenMods/Chlorine/issues"
+logoFile="icon.png"
+license="GNU Lesser General Public License v3.0"
+
+[[mods]]
+    modId="chlorine"
+    version="${version}"
+    displayName="Chlorine"
+    authors="JellySquid, hanetzer"
+    description='''
+        Chlorine is an free and open-source optimization mod for Minecraft which improves frame rates and reduces lag spikes.
+        '''
+    credits="JellySquid, hanetzer"
+
+[[dependencies.chlorine]]
+    modId="forge"
+    mandatory=true
+    versionRange="[${forge_version_min},${forge_version_max})"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependency.chlorine]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[${minecraft_version_min},${minecraft_version_max})"
+    ordering="NONE"
+    side="BOTH"
