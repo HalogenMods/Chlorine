@@ -175,6 +175,10 @@ dependencies {
     //to change the versions see the gradle.properties file
     minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
 
+    // fluid & fluid related rendering tests
+    runtimeOnly fg.deobf("dev.hanetzer:FluidTests:${minecraft_version}-${fluidtests_version}")
+    compile fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+
     // mixin
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
 }
