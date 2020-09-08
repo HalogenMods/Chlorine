@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +39,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 public class FluidRenderer {
     private static final IBlockColor FLUID_COLOR_PROVIDER = (state, world, pos, tintIndex) -> {
         if (world == null) return 0xFFFFFFFF;
-        return BiomeColors.getWaterColor(world, pos);
+        return state.getFluidState() != Fluids.EMPTY.getDefaultState() ? state.getFluidState().getFluid().getAttributes().getColor(world, pos) : 0xFFFFFFFF;
     };
 
     private final BlockPos.Mutable scratchPos = new BlockPos.Mutable();
@@ -109,7 +110,7 @@ public class FluidRenderer {
             return false;
         }
 
-        boolean lava = fluidState.isTagged(FluidTags.LAVA);
+        boolean colored = fluidState.getFluid().getAttributes().getColor() != 0xffffffff;
         TextureAtlasSprite[] sprites = ForgeHooksClient.getFluidSprites(world, pos, fluidState);
 
         boolean rendered = false;
@@ -124,7 +125,7 @@ public class FluidRenderer {
         final ModelQuadViewMutable quad = this.quad;
         final QuadLightData light = this.quadLightData;
 
-        LightMode lightMode = !lava && Minecraft.isAmbientOcclusionEnabled() ? LightMode.SMOOTH : LightMode.FLAT;
+        LightMode lightMode = !colored && Minecraft.isAmbientOcclusionEnabled() ? LightMode.SMOOTH : LightMode.FLAT;
         LightPipeline lighter = this.lighters.getLighter(lightMode);
 
         quad.setFlags(0);
@@ -188,7 +189,7 @@ public class FluidRenderer {
             this.setVertex(quad, 2, 1.0F, 0.0f + h3, 1.0F, u3, v3);
             this.setVertex(quad, 3, 1.0F, 0.0f + h4, 0.0f, u4, v4);
 
-            this.calculateQuadColors(quad, world, pos, lighter, Direction.UP, 1.0F, !lava);
+            this.calculateQuadColors(quad, world, pos, lighter, Direction.UP, 1.0F, colored);
             this.flushQuad(consumer, quad, Direction.UP, false);
 
             if (fluidState.shouldRenderSides(world, this.scratchPos.setPos(posX, posY + 1, posZ))) {
@@ -216,7 +217,7 @@ public class FluidRenderer {
             this.setVertex(quad, 2, 1.0F, 0.0f + yOffset, 0.0f, maxU, minV);
             this.setVertex(quad, 3, 1.0F, 0.0f + yOffset, 1.0F, maxU, maxV);
 
-            this.calculateQuadColors(quad, world, pos, lighter, Direction.DOWN, 1.0F, !lava);
+            this.calculateQuadColors(quad, world, pos, lighter, Direction.DOWN, 1.0F, colored);
             this.flushQuad(consumer, quad, Direction.DOWN, false);
 
             rendered = true;
@@ -316,7 +317,7 @@ public class FluidRenderer {
 
                 float br = dir.getAxis() == Direction.Axis.Z ? 0.8F : 0.6F;
 
-                this.calculateQuadColors(quad, world, pos, lighter, dir, br, !lava);
+                this.calculateQuadColors(quad, world, pos, lighter, dir, br, colored);
                 this.flushQuad(consumer, quad, dir, false);
 
                 if (sprite != sprites[2]) {
@@ -342,7 +343,7 @@ public class FluidRenderer {
         int[] biomeColors = null;
 
         if (colorized) {
-            biomeColors = this.biomeColorBlender.getColors(FLUID_COLOR_PROVIDER, world, Blocks.WATER.getDefaultState(), pos, quad);
+            biomeColors = this.biomeColorBlender.getColors(FLUID_COLOR_PROVIDER, world, world.getBlockState(pos), pos, quad);
         }
 
         for (int i = 0; i < 4; i++) {
