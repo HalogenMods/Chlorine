@@ -177,7 +177,7 @@ dependencies {
 
     // fluid & fluid related rendering tests
     runtimeOnly fg.deobf("dev.hanetzer:FluidTests:${minecraft_version}-${fluidtests_version}")
-    compile fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
 
     // mixin
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
