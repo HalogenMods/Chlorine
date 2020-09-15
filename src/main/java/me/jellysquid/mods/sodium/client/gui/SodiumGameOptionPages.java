@@ -1,6 +1,7 @@
 package me.jellysquid.mods.sodium.client.gui;
 
 import com.google.common.collect.ImmutableList;
+import dev.hanetzer.chlorine.common.config.Config;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.gui.options.OptionFlag;
 import me.jellysquid.mods.sodium.client.gui.options.OptionGroup;
@@ -220,7 +221,7 @@ public class SodiumGameOptionPages {
     }
 
     public static OptionPage advanced() {
-        boolean disableBlacklist = SodiumClientMod.options().advanced.disableDriverBlacklist;
+        boolean disableBlacklist = Config.CLIENT.disableDriverBlacklist.get();
 
         List<OptionGroup> groups = new ArrayList<>();
 

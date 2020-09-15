@@ -1,5 +1,6 @@
 package me.jellysquid.mods.sodium.mixin.features.debug;
 
+import dev.hanetzer.chlorine.common.config.Config;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.gl.util.MemoryTracker;
 import me.jellysquid.mods.sodium.client.render.SodiumWorldRenderer;
@@ -39,7 +40,7 @@ public abstract class MixinDebugHud {
         strings.add("");
         strings.addAll(getChunkRendererDebugStrings());
 
-        if (SodiumClientMod.options().advanced.disableDriverBlacklist) {
+        if (Config.CLIENT.disableDriverBlacklist.get()) {
             strings.add(TextFormatting.RED + "(!!) Driver blacklist ignored");
         }
     }

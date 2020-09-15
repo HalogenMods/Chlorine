@@ -1,5 +1,6 @@
 package me.jellysquid.mods.sodium.mixin.features.entity.smooth_lighting;
 
+import dev.hanetzer.chlorine.common.config.Config;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import me.jellysquid.mods.sodium.client.model.light.EntityLighter;
@@ -26,7 +27,7 @@ public abstract class MixinEntityRenderer<T extends Entity> implements EntityLig
     @Inject(method = "getPackedLight", at = @At("HEAD"), cancellable = true)
     private void preGetLight(T entity, float tickDelta, CallbackInfoReturnable<Integer> cir) {
         // Use smooth entity lighting if enabled
-        if (SodiumClientMod.options().quality.smoothLighting == SodiumGameOptions.LightingQuality.HIGH) {
+        if (Config.CLIENT.smoothLighting.get() == SodiumGameOptions.LightingQuality.HIGH) {
             cir.setReturnValue(EntityLighter.getBlendedLight(this, entity, tickDelta));
         }
     }

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
 import com.mojang.blaze3d.vertex.VertexBuilderUtils;
+import dev.hanetzer.chlorine.common.config.Config;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
@@ -146,7 +147,7 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
     public void updateChunks(ActiveRenderInfo camera, ClippingHelper frustum, boolean hasForcedFrustum, int frame, boolean spectator) {
         this.frustum = frustum;
 
-        this.useEntityCulling = SodiumClientMod.options().advanced.useAdvancedEntityCulling;
+        this.useEntityCulling = Config.CLIENT.useAdvancedEntityCulling.get();
 
         if (this.client.gameSettings.renderDistanceChunks != this.renderDistance) {
             this.reload();
@@ -215,7 +216,7 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
 
         // We don't have a great way to check if underwater fog is being used, so assume that terrain will only ever
         // use linear fog. This will not disable fog in the Nether.
-        if (!SodiumClientMod.options().quality.enableFog && GlFogHelper.isFogLinear()) {
+        if (!Config.CLIENT.enableFog.get() && GlFogHelper.isFogLinear()) {
             RenderSystem.disableFog();
         }
 
@@ -247,17 +248,17 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
 
         this.renderDistance = this.client.gameSettings.renderDistanceChunks;
 
-        SodiumGameOptions opts = SodiumClientMod.options();
+        Config.Client opts = Config.CLIENT;
 
         final GlVertexFormat<SodiumVertexFormats.ChunkMeshAttribute> vertexFormat;
 
-        if (opts.advanced.useCompactVertexFormat) {
+        if (opts.useCompactVertexFormat.get()) {
             vertexFormat = SodiumVertexFormats.CHUNK_MESH_COMPACT;
         } else {
             vertexFormat = SodiumVertexFormats.CHUNK_MESH_FULL;
         }
 
-        this.chunkRenderBackend = createChunkRenderBackend(opts.advanced.chunkRendererBackend, vertexFormat);
+        this.chunkRenderBackend = createChunkRenderBackend(opts.chunkRendererBackend.get(), vertexFormat);
         this.chunkRenderBackend.createShaders();
 
         this.chunkRenderManager = new ChunkRenderManager<>(this, this.chunkRenderBackend, this.world, this.renderDistance);
@@ -266,7 +267,7 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
 
     private static ChunkRenderBackend<?> createChunkRenderBackend(SodiumGameOptions.ChunkRendererBackendOption opt,
                                                            GlVertexFormat<SodiumVertexFormats.ChunkMeshAttribute> vertexFormat) {
-        boolean disableBlacklist = SodiumClientMod.options().advanced.disableDriverBlacklist;
+        boolean disableBlacklist = Config.CLIENT.disableDriverBlacklist.get();
 
         switch (opt) {
             case GL43:

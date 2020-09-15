@@ -1,5 +1,6 @@
 package me.jellysquid.mods.sodium.mixin.features.options;
 
+import dev.hanetzer.chlorine.common.config.Config;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import net.minecraft.client.GameSettings;
@@ -23,12 +24,12 @@ public class MixinGameOptions {
      */
     @Overwrite
     public CloudOption getCloudOption() {
-        SodiumGameOptions options = SodiumClientMod.options();
+        Config.Client options = Config.CLIENT;
 
-        if (this.renderDistanceChunks < 4 || !options.quality.enableClouds) {
+        if (this.renderDistanceChunks < 4 || !options.enableClouds.get()) {
             return CloudOption.OFF;
         }
 
-        return options.quality.cloudQuality.isFancy(this.graphicFanciness) ? CloudOption.FANCY : CloudOption.FAST;
+        return options.cloudQuality.get().isFancy(this.graphicFanciness) ? CloudOption.FANCY : CloudOption.FAST;
     }
 }
