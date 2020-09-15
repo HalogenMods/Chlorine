@@ -1,6 +1,7 @@
 package me.jellysquid.mods.sodium.mixin.features.particle.cull;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import dev.hanetzer.chlorine.common.config.Config;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.render.SodiumWorldRenderer;
 import net.minecraft.client.particle.IParticleRenderType;
@@ -36,7 +37,7 @@ public class MixinParticleManager {
     @Inject(method = "renderParticles(Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer$Impl;Lnet/minecraft/client/renderer/LightTexture;Lnet/minecraft/client/renderer/ActiveRenderInfo;FLnet/minecraft/client/renderer/culling/ClippingHelper;)V", at = @At("HEAD"), remap = false)
     private void preRenderParticles(MatrixStack matrixStack, IRenderTypeBuffer.Impl immediate, LightTexture lightmapTextureManager, ActiveRenderInfo camera, float f, ClippingHelper clippingHelper, CallbackInfo ci) {
         ClippingHelper frustum = SodiumWorldRenderer.getInstance().getFrustum();
-        boolean useCulling = SodiumClientMod.options().advanced.useParticleCulling;
+        boolean useCulling = Config.CLIENT.useParticleCulling.get();
 
         // Setup the frustum state before rendering particles
         if (useCulling && frustum != null) {

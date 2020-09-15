@@ -1,6 +1,7 @@
 package me.jellysquid.mods.sodium.client.render.chunk;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import dev.hanetzer.chlorine.common.config.Config;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongCollection;
 import it.unimi.dsi.fastutil.longs.LongIterator;
@@ -248,7 +249,7 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
 
         this.lastFrameUpdated = frame;
         this.useOcclusionCulling = Minecraft.getInstance().renderChunksMany;
-        this.useAggressiveCulling = SodiumClientMod.options().advanced.useChunkFaceCulling;
+        this.useAggressiveCulling = Config.CLIENT.useChunkFaceCulling.get();
 
         this.resetGraph();
 
@@ -297,7 +298,7 @@ public class ChunkRenderManager<T extends ChunkGraphicsState> implements ChunkSt
 
         this.useFogCulling = false;
 
-        if (GlFogHelper.isFogEnabled() && SodiumClientMod.options().advanced.useFogOcclusion) {
+        if (GlFogHelper.isFogEnabled() && Config.CLIENT.useFogOcclusion.get()) {
             float dist = GlFogHelper.getFogCutoff() + FOG_PLANE_OFFSET;
 
             if (dist != 0.0f) {

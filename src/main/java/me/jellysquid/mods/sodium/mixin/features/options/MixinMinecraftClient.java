@@ -1,5 +1,6 @@
 package me.jellysquid.mods.sodium.mixin.features.options;
 
+import dev.hanetzer.chlorine.common.config.Config;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,6 @@ public class MixinMinecraftClient {
      */
     @Overwrite
     public static boolean isAmbientOcclusionEnabled() {
-        return SodiumClientMod.options().quality.smoothLighting != SodiumGameOptions.LightingQuality.OFF;
+        return Config.CLIENT.smoothLighting.get() != SodiumGameOptions.LightingQuality.OFF;
     }
 }
