@@ -1,6 +1,7 @@
 package me.jellysquid.mods.sodium.mixin.features.texture_tracking;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.hanetzer.chlorine.common.config.Config;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.render.texture.SpriteExtended;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -42,7 +43,7 @@ public abstract class MixinSprite implements SpriteExtended {
     public void updateAnimation() {
         this.tickCounter++;
 
-        boolean onDemand = SodiumClientMod.options().advanced.animateOnlyVisibleTextures;
+        boolean onDemand = Config.CLIENT.animateOnlyVisibleTextures.get();
 
         if (!onDemand || this.forceNextUpdate) {
             this.uploadTexture();

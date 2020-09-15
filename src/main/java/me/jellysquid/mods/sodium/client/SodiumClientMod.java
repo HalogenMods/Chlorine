@@ -15,13 +15,13 @@ public class SodiumClientMod {
 
     }
 
-    public static SodiumGameOptions options() {
-        if (CONFIG == null) {
-            CONFIG = loadConfig();
-        }
-
-        return CONFIG;
-    }
+//    public static SodiumGameOptions options() {
+//        if (CONFIG == null) {
+//            CONFIG = loadConfig();
+//        }
+//
+//        return CONFIG;
+//    }
 
     public static Logger logger() {
         if (LOGGER == null) {
