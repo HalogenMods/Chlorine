@@ -1,5 +1,6 @@
 package me.jellysquid.mods.sodium.client.util;
 
+import dev.hanetzer.chlorine.common.Chlorine;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import sun.misc.Unsafe;
 
@@ -37,7 +38,7 @@ public class UnsafeUtil {
 
             return (Unsafe) field.get(null);
         } catch (ReflectiveOperationException e) {
-            SodiumClientMod.logger().warn("Could not find Unsafe intrinsics", e);
+            Chlorine.log.warn("Could not find Unsafe intrinsics", e);
         }
 
         return null;

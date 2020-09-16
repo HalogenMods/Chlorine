@@ -26,7 +26,7 @@ public class SodiumGameOptions {
     private File file;
 
     public void notifyListeners() {
-        SodiumClientMod.onConfigChanged(this);
+//        SodiumClientMod.onConfigChanged(this);
     }
 
     public static class AdvancedSettings {
