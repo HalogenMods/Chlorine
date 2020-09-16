@@ -1,7 +1,6 @@
 modLoader="javafml"
-loaderVersion="[${forge_version_min},${forge_version_max})"
+loaderVersion="[${javafml_min},${javafml_max})"
 issueTrackerURL="http://github.com/HalogenMods/Chlorine/issues"
-logoFile="icon.png"
 license="GNU Lesser General Public License v3.0"
 
 [[mods]]

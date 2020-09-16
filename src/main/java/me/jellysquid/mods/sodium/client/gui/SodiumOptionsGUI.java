@@ -205,8 +205,8 @@ public class SodiumOptionsGUI extends Screen {
 
         ITextProperties title = new StringTextComponent(option.getName()).mergeStyle(TextFormatting.GRAY);
 
-        List<IReorderingProcessor> text = new ArrayList<>(this.font.func_238425_b_(title, textWidth));
-        text.addAll(this.font.func_238425_b_(option.getTooltip(), textWidth));
+        List<IReorderingProcessor> text = new ArrayList<>(this.font.trimStringToWidth(title, textWidth));
+        text.addAll(this.font.trimStringToWidth(option.getTooltip(), textWidth));
 
         int boxHeight = (text.size() * 12) + boxPadding;
         int boxYLimit = boxY + boxHeight;
