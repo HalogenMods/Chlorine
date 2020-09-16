@@ -1,51 +1,34 @@
-![Project icon](https://git-assets.jellysquid.me/hotlink-ok/sodium/icon-rounded-128px.png)
+![Project icon](https://avatars0.githubusercontent.com/u/2760645?s=144&v=4)
 
-# Sodium (for Fabric)
-![GitHub license](https://img.shields.io/github/license/jellysquid3/sodium-fabric.svg)
-![GitHub issues](https://img.shields.io/github/issues/jellysquid3/sodium-fabric.svg)
-![GitHub tag](https://img.shields.io/github/tag/jellysquid3/sodium-fabric.svg)
-[![Discord chat](https://img.shields.io/badge/chat%20on-discord-7289DA)](https://jellysquid.me/discord)
-[![CurseForge downloads](http://cf.way2muchnoise.eu/full_394468_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/sodium)
+# Chlorine (for Forge)
+![GitHub license](https://img.shields.io/github/license/HalogenMods/Chlorine.svg)
+![GitHub issues](https://img.shields.io/github/issues/HalogenMods/Chlorine.svg)
+![GitHub tag](https://img.shields.io/github/tag/HalogenMods/Chlorine.svg)
+[![CurseForge downloads](http://cf.way2muchnoise.eu/full_408362_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/chlorine)
 
-Sodium is a free and open-source optimization mod for the Minecraft client that improves frame rates, reduces
+Chlorine is a free and open-source optimization mod for the Minecraft client that improves frame rates, reduces
 micro-stutter, and fixes graphical issues in Minecraft. 
 
-:warning: Sodium has had a lot of time to shape up lately, but the mod is still alpha software. You may run into small
-graphical issues or crashes while using it. Additionally, the
-[Fabric Rendering API](https://fabricmc.net/wiki/documentation:rendering) is not yet supported, which may cause crashes
-or prevent other mods from rendering correctly. Please be aware of these issues before using it in your game.
+Chlorine is a fork of JellySquid's excellent fabric mod, [sodium-fabric](https://github.com/jellysquid3/sodium-fabric), ported to minecraftforge
+under the terms of the LGPLv3, with additional modifications to make it fit better within the forge ecosystem. It may inherit
+bugs and issues from its upstream. However, please do not file bugs with them. If the issue is on my side, I and the team will
+fix it as soon as we can, and if it can be reproduced on fabric, we'll file an upstream issue.
+
+:warning: Chlorine has had a lot of time to shape up lately, but the mod is still alpha software. You may run into small
+graphical issues or crashes while using it.
 
 ### Downloads
 
-You can find downloads for Sodium on either the [official CurseForge page](https://www.curseforge.com/minecraft/mc-mods/sodium)
-or through the [GitHub releases page](https://github.com/jellysquid3/sodium-fabric/releases). Usually, builds will be
-made available on GitHub slightly sooner than other locations.
-
-### Community
-
-If you'd like to get help with the mod, check out the latest developments, or be notified when there's a new release,
-the Discord community might be for you! You can join the official server for my mods by clicking
-[here](https://jellysquid.me/discord).
-
-### Translations
-
-Translations to other languages are managed on [our OneSky site](https://jellysquid.oneskyapp.com/). If you're
-interested in improving language support for Sodium, you should also [join the Discord server](https://jellysquid.me/discord)
-to chat with other contributors. Each submitted translation requires either a number of approval votes from the community
-or approval from a reviewer in order to be included in the mod. 
-
-In the future, these translations will be automatically downloaded and included in the mod at compile time. For the time
-being you will need to manually export the translation files from OneSky and add them to the
-`src/main/resources/assets/sodium/lang` directory in order to see them in-game.
+You can find downloads for Chlorine on the [official CurseForge page](https://www.curseforge.com/minecraft/mc-mods/chlorine).
 
 ### Building from source
 
-If you're hacking on the code or would like to compile a custom build of Sodium from the latest sources, you'll want
+If you're hacking on the code or would like to compile a custom build of Chlorine from the latest sources, you'll want
 to start here.
 
 #### Prerequisites
 
-You will need to install JDK 8 (or newer, see below) in order to build Sodium. You can either install this through
+You will need to install JDK 8 (or newer, see below) in order to build Chlorine. You can either install this through
 a package manager such as [Chocolatey](https://chocolatey.org/) on Windows or [SDKMAN!](https://sdkman.io/) on other
 platforms. If you'd prefer to not use a package manager, you can always grab the installers or packages directly from
 [AdoptOpenJDK](https://adoptopenjdk.net/).
@@ -65,10 +48,10 @@ artifacts in `build/libs`.
 ### Tuning for optimal performance
 
 _This section is entirely optional and is only aimed at users who are interested in squeezing out every drop from their
-game. Sodium will work without issue in the default configuration of almost all launchers._
+game. Chlorine will work without issue in the default configuration of almost all launchers._
 
 Generally speaking, newer versions of Java will provide better performance not only when playing Minecraft, but when
-using Sodium as well. The default configuration your game launcher provides will usually be some old version of Java 8
+using Chlorine as well. The default configuration your game launcher provides will usually be some old version of Java 8
 that has been selected to maximize hardware compatibility instead of performance.
 
 For most users, these compatibility issues are not relevant, and it should be relatively easy to upgrade the game's Java
@@ -77,5 +60,5 @@ guide [here](https://gist.github.com/jellysquid3/8a7b21e57f47f5711eb5697e282e502
 
 ### License
 
-Sodium is licensed under GNU LGPLv3, a free and open-source license. For more information, please see the
-[license file](https://github.com/jellysquid3/sodium-fabric/blob/1.16.x/dev/LICENSE.txt).
+Chlorine is licensed under GNU LGPLv3, a free and open-source license. For more information, please see the
+[license file](/LICENSE.txt).
