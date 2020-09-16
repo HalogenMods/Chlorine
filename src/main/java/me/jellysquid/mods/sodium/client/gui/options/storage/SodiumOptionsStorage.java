@@ -1,5 +1,6 @@
 package me.jellysquid.mods.sodium.client.gui.options.storage;
 
+import dev.hanetzer.chlorine.common.Chlorine;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 
@@ -21,6 +22,6 @@ public class SodiumOptionsStorage implements OptionStorage<SodiumGameOptions> {
 //        this.options.writeChanges();
 //        this.options.notifyListeners();
 
-        SodiumClientMod.logger().info("Flushed changes to Sodium configuration");
+        Chlorine.log.info("Flushed changes to Sodium configuration");
     }
 }
