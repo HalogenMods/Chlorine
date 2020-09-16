@@ -83,7 +83,7 @@ public abstract class MixinClientWorld extends World {
 
     private void performBiomeParticleDisplayTick(BlockPos pos, Random random) {
         ParticleEffectAmbience config = this.getBiome(pos)
-                .func_235090_t_()
+                .getAmbientParticle()
                 .orElse(null);
 
         if (config != null && config.shouldParticleSpawn(random)) {

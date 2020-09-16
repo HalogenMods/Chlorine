@@ -55,7 +55,7 @@ public class SodiumGameOptionPages {
                         .setBinding((opts, value) -> {
                             opts.quality.enableClouds = value;
 
-                            if (Minecraft.func_238218_y_()) {
+                            if (Minecraft.isFabulousGraphicsEnabled()) {
                                 Framebuffer framebuffer = Minecraft.getInstance().worldRenderer.func_239232_u_();
                                 if (framebuffer != null) {
                                     framebuffer.framebufferClear(Minecraft.IS_RUNNING_ON_MAC);
