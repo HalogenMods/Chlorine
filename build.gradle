@@ -51,6 +51,10 @@ repositories {
         name "ModMaven"
         url "https://modmaven.k-4u.nl"
     }
+    maven {
+        name "CurseMaven"
+        url "https://www.cursemaven.com"
+    }
 }
 
 group = 'dev.hanetzer'
@@ -180,6 +184,8 @@ dependencies {
     // fluid & fluid related rendering tests
     runtimeOnly fg.deobf("dev.hanetzer:FluidTests:${minecraft_version_min}-${fluidtests_version}")
     runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version_min}-${mantle_version}")
+    // double slabs
+    runtimeOnly fg.deobf("curse.maven:DoubleSlabs:${double_slab_id}")
 
     // mixin
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
@@ -192,7 +198,14 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
 
-        expand 'version': artifact_version, 'minecraft_version_min': minecraft_version_min, 'minecraft_version_max': minecraft_version_max, 'forge_version_min': forge_version_min, 'forge_version_max': forge_version_max, 'javafml_min': javafml_min, 'javafml_max': javafml_max
+        expand 'version': artifact_version,
+               'minecraft_version_min': minecraft_version_min,
+               'minecraft_version_max': minecraft_version_max,
+               'forge_version_min': forge_version_min,
+               'forge_version_max': forge_version_max,
+               'javafml_min': javafml_min,
+               'javafml_max': javafml_max,
+               'sodium_version': sodium_version
     }
 
     from(sourceSets.main.resources.srcDirs) {

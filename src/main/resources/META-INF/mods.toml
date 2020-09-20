@@ -10,6 +10,7 @@ license="GNU Lesser General Public License v3.0"
     authors="JellySquid, hanetzer"
     description='''
         Chlorine is an free and open-source optimization mod for Minecraft which improves frame rates and reduces lag spikes.
+        Based on Sodium version ${sodium_version}
         '''
     credits="JellySquid, hanetzer"
 
