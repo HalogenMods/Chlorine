@@ -1,0 +1,13 @@
+0.0.2:
+New
+- Update forge & mantle to new RB
+- Rename sodium mixin to chlorine to prevent confusion
+
+0.0.1:
+Fixes
+- Tinting & rendering of non-vanilla fluids
+- DoubleSlabs mod models
+
+0.0.0:
+New
+- Initial forge port
