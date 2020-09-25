@@ -56,10 +56,6 @@ public class BlockRenderer {
         this.useAmbientOcclusion = Minecraft.isAmbientOcclusionEnabled();
     }
 
-    public boolean renderModel(IBlockDisplayReader world, BlockState state, BlockPos pos, IBakedModel model, ModelQuadSinkDelegate builder, boolean cull, long seed) {
-        return renderModel(world, state, pos, model, builder, cull, seed, EmptyModelData.INSTANCE);
-    }
-
     public boolean renderModel(IBlockDisplayReader world, BlockState state, BlockPos pos, IBakedModel model, ModelQuadSinkDelegate builder, boolean cull, long seed, IModelData modelData) {
         LightPipeline lighter = this.lighters.getLighter(this.getLightingMode(state, model));
         Vector3d offset = state.getOffset(world, pos);

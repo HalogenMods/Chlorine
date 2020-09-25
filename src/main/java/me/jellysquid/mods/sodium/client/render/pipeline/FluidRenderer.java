@@ -39,7 +39,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 public class FluidRenderer {
     private static final IBlockColor FLUID_COLOR_PROVIDER = (state, world, pos, tintIndex) -> {
         if (world == null) return 0xFFFFFFFF;
-        return state.getFluidState() != Fluids.EMPTY.getDefaultState() ? state.getFluidState().getFluid().getAttributes().getColor(world, pos) : 0xFFFFFFFF;
+        return state.getFluidState().getFluid().getAttributes().getColor(world, pos);
     };
 
     private final BlockPos.Mutable scratchPos = new BlockPos.Mutable();

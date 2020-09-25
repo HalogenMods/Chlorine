@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraftforge.registries.IRegistryDelegate;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockColors.class)
 public class MixinBlockColors implements BlockColorsExtended {
-    private Reference2ReferenceMap<Block, IBlockColor> blocksToColor;
+    private Reference2ReferenceMap<IRegistryDelegate<Block>, IBlockColor> blocksToColor;
 
     private static final IBlockColor DEFAULT_PROVIDER = (state, view, pos, tint) -> -1;
 
@@ -27,12 +28,12 @@ public class MixinBlockColors implements BlockColorsExtended {
     @Inject(method = "register", at = @At("HEAD"))
     private void preRegisterColor(IBlockColor provider, Block[] blocks, CallbackInfo ci) {
         for (Block block : blocks) {
-            this.blocksToColor.put(block, provider);
+            this.blocksToColor.put(block.delegate, provider);
         }
     }
 
     @Override
     public IBlockColor getColorProvider(BlockState state) {
-        return this.blocksToColor.get(state.getBlock());
+        return this.blocksToColor.get(state.getBlock().delegate);
     }
 }
