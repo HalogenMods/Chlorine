@@ -31,6 +31,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'io.freefair.lombok'
 
+apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/generic/markdown-git-changelog.gradle'
+
 import net.minecraftforge.gradle.common.task.SignJar
 
 repositories {
@@ -105,7 +107,6 @@ minecraft {
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE'
-            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE' enable if you want spam from the scanner.
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
@@ -148,7 +149,6 @@ minecraft {
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE'
-            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE' enable if you want spam from the scanner.
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
@@ -165,7 +165,6 @@ minecraft {
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE'
-            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE' enable if you want spam from the scanner.
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
@@ -190,10 +189,16 @@ dependencies {
     minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
 
     // fluid & fluid related rendering tests
-    runtimeOnly fg.deobf("dev.hanetzer:FluidTests:${minecraft_version_min}-${fluidtests_version}")
-    runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version_min}-${mantle_version}")
+    runtimeOnly fg.deobf("dev.hanetzer:FluidTests:${minecraft_min}-${fluidtests_version}")
+    runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
     // double slabs
     runtimeOnly fg.deobf("curse.maven:DoubleSlabs:${double_slab_id}")
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    // required for jei due to vote
+    runtimeOnly fg.deobf("com.feed_the_beast.mods:ftb-gui-library:${ftb_gui_lib_version}")
 
     // mixin
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
@@ -207,12 +212,9 @@ processResources {
         include 'META-INF/mods.toml'
 
         expand 'version': artifact_version,
-               'minecraft_version_min': minecraft_version_min,
-               'minecraft_version_max': minecraft_version_max,
-               'forge_version_min': forge_version_min,
-               'forge_version_max': forge_version_max,
-               'javafml_min': javafml_min,
-               'javafml_max': javafml_max,
+               'minecraft_min': minecraft_min, 'minecraft_max': minecraft_max,
+               'forge_min': forge_min, 'forge_max': forge_max,
+               'javafml_min': javafml_min, 'javafml_max': javafml_max,
                'sodium_version': sodium_version
     }
 
@@ -335,37 +337,6 @@ mixin {
     add sourceSets.main, "chlorine.refmap.json"
 }
 
-String getChangelogText() {
-    def changelogFile = file('changelog.txt')
-    String str = ''
-    int lineCount = 0
-    boolean done = false
-    changelogFile.eachLine {
-        if (done || it == null) {
-            return
-        }
-        if (it.size() > 1) {
-            def temp = it
-            if (lineCount == 0) {
-                temp = "Chlorine ${version}"
-                temp = "<h2>$temp</h2>"
-            } else if (it.startsWith('-')) {
-                temp = "&nbsp;&nbsp;&nbsp;$temp"
-                temp = temp.replaceAll("(\\S+\\/\\S+)#([0-9]+)\\b", "<a href=\"https://github.com/\$1/issues/\$2\">\$0</a>");
-                temp = temp.replaceAll("#([0-9]+)\\b(?!<\\/a>)", "<a href=\"https://github.com/$github_project/issues/\$1\">\$0</a>");
-            } else {
-                temp = "<h4>$temp</h4>"
-            }
-            str += "$temp<br/>"
-            lineCount++
-            return
-        } else {
-            done = true
-        }
-    }
-    return str
-}
-
 tasks.curseforge.enabled = System.getenv().BUILD_NUMBER != null && project.hasProperty('curseforge_key')
 
 curseforge {
@@ -375,13 +346,16 @@ curseforge {
 
     project {
         id = project.projectId
-        changelog = System.getenv('CHANGELOG') == null || System.getenv('CHANGELOG').equals('none') ? getChangelogText() : System.getenv('CHANGELOG')
-        changelogType = 'html'
+        changelog = getGitChangelog
+        changelogType = 'markdown'
         releaseType = project.curse_type
         mainArtifact(jar) {
             displayName = "Chlorine ${version}"
         }
         addArtifact sourcesJar
         addGameVersion '1.16.2'
+        relations {
+            optionalDependency 'chlorineftb-chunks'
+        }
     }
 }

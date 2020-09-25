@@ -17,13 +17,13 @@ license="GNU Lesser General Public License v3.0"
 [[dependencies.chlorine]]
     modId="forge"
     mandatory=true
-    versionRange="[${forge_version_min},${forge_version_max})"
+    versionRange="[${forge_min},${forge_max})"
     ordering="NONE"
     side="BOTH"
 
 [[dependency.chlorine]]
     modId="minecraft"
     mandatory=true
-    versionRange="[${minecraft_version_min},${minecraft_version_max})"
+    versionRange="[${minecraft_min},${minecraft_max})"
     ordering="NONE"
     side="BOTH"
