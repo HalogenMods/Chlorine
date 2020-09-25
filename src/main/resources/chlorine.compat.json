@@ -1,0 +1,14 @@
+{
+  "package": "dev.hanetzer.chlorine.mixin.compat",
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "chlorine.refmap.json",
+  "plugin": "dev.hanetzer.chlorine.mixin.compat.ChlorineCompatPlugin",
+  "minVersion": "0.8.1",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [],
+  "server": [],
+  "client": []
+}
