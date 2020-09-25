@@ -57,6 +57,10 @@ repositories {
         name "CurseMaven"
         url "https://www.cursemaven.com"
     }
+    maven {
+        name "LatvianModder"
+        url "https://maven.latmod.com"
+    }
 }
 
 group = 'dev.hanetzer'
@@ -99,7 +103,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            args "-mixin.config=chlorine.mixins.json"
+            args "-mixin.config=chlorine.mixins.json", "-mixin.config=chlorine.compat.json"
             // needed for mixins indev
             property 'mixin.env.disableRefMap', 'true'
             property 'mixin.debug', 'true'
@@ -199,6 +203,9 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
     // required for jei due to vote
     runtimeOnly fg.deobf("com.feed_the_beast.mods:ftb-gui-library:${ftb_gui_lib_version}")
+    compile fg.deobf("com.feed_the_beast.mods:ftb-chunks:${ftb_chunks_version}")
+    runtimeOnly fg.deobf("com.feed_the_beast.mods:ftb-ranks:${ftb_ranks_version}")
+    runtimeOnly fg.deobf("com.feed_the_beast.mods:ftb-teams:${ftb_teams_version}")
 
     // mixin
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
@@ -240,7 +247,7 @@ jar {
                 "Implementation-Version"  : "${version}",
                 "Implementation-Vendor"   : "Hanetzer",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs"            : "chlorine.mixins.json"
+                "MixinConfigs"            : "chlorine.mixins.json,chlorine.compat.json"
         ])
     }
 }
@@ -354,8 +361,5 @@ curseforge {
         }
         addArtifact sourcesJar
         addGameVersion '1.16.2'
-        relations {
-            optionalDependency 'chlorineftb-chunks'
-        }
     }
 }

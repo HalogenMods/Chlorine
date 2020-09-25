@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "chlorine.refmap.json",
   "plugin": "me.jellysquid.mods.sodium.mixin.SodiumMixinPlugin",
+  "minVersion": "0.8.1",
   "injectors": {
     "defaultRequire": 1
   },
