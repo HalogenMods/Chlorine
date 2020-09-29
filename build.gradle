@@ -57,6 +57,10 @@ repositories {
         name "CurseMaven"
         url "https://www.cursemaven.com"
     }
+    maven {
+        name "LatvianModder"
+        url "https://maven.latmod.com"
+    }
 }
 
 group = 'dev.hanetzer'
@@ -199,6 +203,10 @@ dependencies {
     })
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf(project.dependencies.create("mezz.jei:jei-${minecraft_version}:${jei_version}") {
+        transitive = false
+    })
+    // ftb-chunks
+    compileOnly fg.deobf(project.dependencies.create("com.feed_the_beast.mods:ftb-chunks:${ftb_chunks_version}") {
         transitive = false
     })
 }

@@ -5,7 +5,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.blaze3d.vertex.MatrixApplyingVertexBuilder;
 import com.mojang.blaze3d.vertex.VertexBuilderUtils;
+import dev.hanetzer.chlorine.common.Chlorine;
 import dev.hanetzer.chlorine.common.config.Config;
+import dev.hanetzer.chlorine.plugin.ftb.FTBChunksChecker;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
@@ -335,6 +337,9 @@ public class SodiumWorldRenderer implements ChunkStatusListener {
     public void onChunkAdded(int x, int z) {
         this.loadedChunkPositions.add(ChunkPos.asLong(x, z));
         this.chunkRenderManager.onChunkAdded(x, z);
+        if (Chlorine.ftbChunksLoaded) {
+            FTBChunksChecker.queueChunk(x, z);
+        }
     }
 
     @Override
