@@ -132,7 +132,7 @@ public class BlockRenderer {
             copy.setX(dstIndex, src.getX(srcIndex) + (float) offset.getX());
             copy.setY(dstIndex, src.getY(srcIndex) + (float) offset.getY());
             copy.setZ(dstIndex, src.getZ(srcIndex) + (float) offset.getZ());
-            copy.setColor(dstIndex, ColorABGR.mul(colors != null ? colors[srcIndex] : 0xFFFFFFFF, light.br[srcIndex]));
+            copy.setColor(dstIndex, ColorABGR.mul(colors != null ? colors[srcIndex] : src.getColor(srcIndex), light.br[srcIndex]));
             copy.setTexU(dstIndex, src.getTexU(srcIndex));
             copy.setTexV(dstIndex, src.getTexV(srcIndex));
             copy.setLight(dstIndex, light.lm[srcIndex]);
