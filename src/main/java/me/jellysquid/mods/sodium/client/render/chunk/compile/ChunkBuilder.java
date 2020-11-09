@@ -341,18 +341,23 @@ public class ChunkBuilder<T extends ChunkGraphicsState> {
                 }
 
                 // Perform the build task with this worker's local resources and obtain the result
-                ChunkBuildResult<T> result = job.task.performBuild(this.pipeline, this.bufferCache, job);
+                try {
+                    ChunkBuildResult<T> result = job.task.performBuild(this.pipeline, this.bufferCache, job);
 
-                // After the result has been obtained, it's safe to release any resources attached to the task
-                job.task.releaseResources();
+                    // After the result has been obtained, it's safe to release any resources attached to the task
+                    job.task.releaseResources();
 
-                // The result can be null if the task is cancelled
-                if (result != null) {
-                    // Notify the future that the result is now available
-                    job.future.complete(result);
-                } else if (!job.isCancelled()) {
-                    // If the job wasn't cancelled and no result was produced, we've hit a bug
-                    job.future.completeExceptionally(new RuntimeException("No result was produced by the task"));
+                    // The result can be null if the task is cancelled
+                    if (result != null) {
+                        // Notify the future that the result is now available
+                        job.future.complete(result);
+                    } else if (!job.isCancelled()) {
+                        // If the job wasn't cancelled and no result was produced, we've hit a bug
+                        job.future.completeExceptionally(new RuntimeException("No result was produced by the task"));
+                    }
+                } catch (Exception xcp) {
+                    xcp.printStackTrace();
+                    job.future.completeExceptionally(xcp);
                 }
             }
         }
