@@ -105,6 +105,9 @@ public class ChunkRenderRebuildTask<T extends ChunkGraphicsState> extends ChunkR
                             builder.setOffset(x - offset.getX(), y - offset.getY(), z - offset.getZ());
 
                             IModelData modelData = ModelDataManager.getModelData(Objects.requireNonNull(Minecraft.getInstance().world), pos);
+                            if (modelData == null) {
+                                modelData = EmptyModelData.INSTANCE;
+                            }
                             if (pipeline.renderBlock(this.slice, blockState, pos, builder, true, modelData)) {
                                 bounds.addBlock(x, y, z);
                             }
