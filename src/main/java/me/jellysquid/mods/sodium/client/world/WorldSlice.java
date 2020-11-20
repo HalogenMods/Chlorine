@@ -7,6 +7,7 @@ import me.jellysquid.mods.sodium.client.world.biome.BiomeCacheManager;
 import me.jellysquid.mods.sodium.client.world.biome.BiomeColorCache;
 import me.jellysquid.mods.sodium.common.util.pool.ReusableObject;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -229,11 +230,16 @@ public class WorldSlice extends ReusableObject implements IBlockDisplayReader, B
 
     @Override
     public BlockState getBlockState(BlockPos pos) {
-        return this.blockStates[this.getBlockIndex(pos.getX(), pos.getY(), pos.getZ())];
+        return getBlockState(pos.getX(), pos.getY(), pos.getZ());
     }
 
     public BlockState getBlockState(int x, int y, int z) {
-        return this.blockStates[this.getBlockIndex(x, y, z)];
+        final int index = this.getBlockIndex(x, y, z);
+        if (index < this.blockStates.length && index >= 0) {
+            return this.blockStates[index];
+        } else {
+            return Blocks.AIR.getDefaultState();
+        }
     }
 
     @Override
